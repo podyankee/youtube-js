@@ -1,0 +1,12 @@
+//- icon SVG mixin
+mixin icon(name, mod)
+	- mod = mod || ''
+	svg(class="icon icon-" + name + ' ' + mod)
+			use(xlink:href="assets/img/sprite.svg#" + name)
+mixin topMenuLink(link,title)
+	li.top__menu_item
+		a(href= link).top__menu_link= title
+
+mixin categoriesNavigation(link,title)
+	li.categories__nav_item
+		a(href= link).categories__nav_link= title

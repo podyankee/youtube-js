@@ -1,0 +1,138 @@
+@function rem($pixels, $context: $mainFontSize)
+	@if unitless($pixels)
+		$pixels: $pixels * 1px
+	@if unitless($context)
+		$context: $context * 1px
+	@return $pixels / $context * 1rem
+
+=placeholder
+	\::-webkit-input-placeholder
+		@content
+	\:-moz-placeholder
+		@content
+	\::-moz-placeholder
+		@content
+	\:-ms-input-placeholder
+		@content
+
+@mixin centered($axis: 'both')
+		position: absolute
+		@if $axis == 'both'
+				top: 50%
+				left: 50%
+				transform: translate(-50%, -50%)
+		@if $axis == 'x'
+				left: 50%
+				transform: translateX(-50%)
+		@if $axis == 'y'
+				top: 50%
+				transform: translateY(-50%)
+
+@mixin dem($a,$b: $a)
+	width: $a
+	height: $b
+
+@function calculateRem($size)
+		$remSize: $size / 16px
+		@return $remSize * 1rem
+
+
+@mixin rem($size)
+		font-size: $size
+		font-size: calculateRem($size)
+
+@mixin absolute-center()
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%,-50%)
+
+@mixin absolute-all($num)
+		position: absolute
+		top: $num
+		bottom: $num
+		right: $num
+		left: $num
+
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false )
+	@font-face
+		font-family: $font-family
+		font-weight: $weight
+		font-style: $style
+
+		@if $asset-pipeline == true
+			src: font-url('#{$file-path}.eot')
+			src: font-url('#{$file-path}.eot?#iefix') format('embedded-opentype'), font-url('#{$file-path}.woff') format('woff'), font-url('#{$file-path}.ttf') format('truetype')
+		@else
+			src: url('#{$file-path}.eot')
+			src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'), url('#{$file-path}.woff') format('woff'), url('#{$file-path}.ttf') format('truetype')
+
+@mixin abs-pos ($top: auto, $right: auto, $bottom: auto, $left: auto)
+		top: $top
+		right: $right
+		bottom: $bottom
+		left: $left
+		position: absolute
+
+// triangle (ширина, высота, фон, направление стрелки)
+=arr($width, $height, $bg, $direction)
+	width: 0px
+	height: 0px
+	border-style: solid
+	@if $direction == t
+		border-width: 0 $width / 2 + px $height + px $width / 2 + px
+		border-color: transparent transparent $bg transparent
+	@if $direction == r
+		border-width: $height / 2 + px 0 $height / 2 + px $width + px
+		border-color: transparent transparent transparent $bg
+	@if $direction == b
+		border-width: $height + px $width / 2 + px 0 $width / 2 + px
+		border-color: $bg transparent transparent transparent
+	@if $direction == l
+		border-width: $height / 2 + px $width + px $height / 2 + px 0
+		border-color: transparent $bg transparent transparent
+	@if $direction == tl
+		border-width: $height + px $width + px 0 0
+		border-color: $bg transparent transparent transparent
+	@if $direction == tr
+		border-width: 0 $width + px $height + px 0
+		border-color: transparent $bg transparent transparent
+	@if $direction == br
+		border-width: 0 0 $height + px $width + px
+		border-color: transparent transparent $bg transparent
+	@if $direction == bl
+		border-width: $height + px 0 0 $width + px
+		border-color: transparent transparent transparent $bg
+
+
+
+@mixin btn($bg: $black-color, $fs: 9px, $lh: 13px, $ls: 0.54px, $clr: $white-color, $br: 40px, $w: 114px)
+	width: $w
+	color: $clr
+	font-size: $fs
+	line-height: $lh
+	letter-spacing: $ls
+	background-color: $bg
+	border-radius: $br
+	padding: 13px 0
+	display: block
+	text-align: center
+	text-transform: uppercase
+	margin: 25px 0
+	text-decoration: none
+	transition: $trs
+	@content
+	&:hover
+		background-color: lighten($bg, 15%)
+
+=img-responsive
+	display: block
+	max-width: 100%
+	height: auto
+
+@mixin min-max($min-width, $max-width, $padding)
+  min-width: $min-width
+  max-width: $max-width
+  padding: 0 $padding
+  box-sizing: border-box
+  margin: 0 auto
