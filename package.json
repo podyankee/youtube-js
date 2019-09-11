@@ -9,7 +9,7 @@
     "svg": "npm --config ./svg-mixer.js",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "git@github.com:podyankee/procsite.git",
+  "homepage": "git@github.com:podyankee/youtube-js.git",
   "browserslist": [
     ">1%",
     "last 3 version"
